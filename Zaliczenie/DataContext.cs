@@ -16,6 +16,6 @@ namespace Zaliczenie
             options.UseSqlite($"Data Source=BazaNaZaliczenie.db");
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<UserDb> Users { get; set; }
     }
 }

@@ -1,22 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Zaliczenie.Persistance;
 using Zaliczenie.Services;
-using Zaliczenie.UserUpdateModel;
 
 namespace Zaliczenie.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     public class UserController : Controller
     {
         private readonly UserService userService;
+        private object _deleteServces;
+
         public UserController()
         {
             userService = new UserService();
         }
 
         [HttpPut(Name = "AddUser")]
-        public IActionResult Add([FromBody] UserModel user) //request.payload
+        public IActionResult Add([FromBody] UserAddModel user) //request.payload
         {
             userService.AddUser(user);
             return Ok();
@@ -25,21 +26,30 @@ namespace Zaliczenie.Controllers
         [HttpDelete(Name = "DeleteUser")]
         public IActionResult Delete(int id)
         {
+            userService.DeleteUser(id);
             return Ok();
         }
 
         [HttpPost(Name = "UpdateUser")]
-        public IActionResult Update([FromBody] UserModel user)
+        public IActionResult Update([FromBody] UserUpdateModel user)
         {
-            userService.CreateUser(user);
+            userService.UpdateUser(user);
             return Ok();
 
         }
 
-        [HttpPost(Name = "CreateUser")]
-        public IActionResult DupaDupa(int id, string name)
+        [HttpGet(Name = "GetList")]
+        public List<UserGetModel> GetList()
         {
-            return Ok();
-        } 
+            return userService.GetUsers();
+
+        }
+
+        [HttpGet(Name = "GetDetails")]
+        public UserGetModel GetDetails(int id)
+        {
+            return userService.GetDetails(id);
+
+        }
     }
 }
