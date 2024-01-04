@@ -68,7 +68,7 @@ namespace Zaliczenie.Services
             }
         }
 
-        //793 272 797
+       
         public UserGetModel GetDetails(int userId)
         {
             using (var db = new DataContext())
