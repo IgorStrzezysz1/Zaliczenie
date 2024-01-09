@@ -1,0 +1,32 @@
+services:
+  backend:
+    build:
+      context: backend/Zaliczenie
+    restart: always
+    networks:
+      - react-net
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+
+  frontend:
+    build:
+      context: frontend
+      target: development
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend/src:/code/src
+      - /project/node_modules
+    networks:
+      - react-net
+    depends_on:
+      - backend
+    expose:
+      - 3306
+      - 33060
+      - 3000
+
+networks:
+  react-net: {}

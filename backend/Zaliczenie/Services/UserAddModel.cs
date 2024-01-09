@@ -43,4 +43,12 @@
         public string City { get; set; }
         public long PESEL { get; set; }
     }
+
+
+    public class SendMailModel
+    {
+        public int Id { get; set; }
+        public string Subject { get; set; }
+        public string Text { get; set; }
+    }
 }

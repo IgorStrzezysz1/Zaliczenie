@@ -4,3 +4,9 @@ Jak na razie zrobiłem porsty backend - POST, GET, DELETE i PUT, wiem że jeszcz
 W razie pytań proszę pisać, a i mała uwaga, mój Pan korepetytor mi to wyjaśnia i dalej sam musze robić, nie wyobrażam sobie na pana zajęcia kupić sobie pracę, oj nie nie nie. Za taki numer to się z wiekszości uczelni "wylatuje" a mi jeszcze studia miłe.
 Pozdrawiam
 Igor Strzeżysz
+
+
+Docker uruchamiany w trybie linux.
+
+
+Aplikacja dostęna pod adrtesem localhost:3000

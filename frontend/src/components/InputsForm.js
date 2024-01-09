@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../Styles/ImputForm.css'
 
 const InputForm = ({ addUser, updateUser, initialData }) => {
   const [formData, setFormData] = useState(initialData);
@@ -22,7 +23,7 @@ const InputForm = ({ addUser, updateUser, initialData }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className = "FormContainer" onSubmit={handleSubmit}>
       <label>
         Name:
         <input type="text" name="name" value={formData.name} onChange={handleInputChange} />

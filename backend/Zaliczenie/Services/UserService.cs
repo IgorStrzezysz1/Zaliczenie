@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+using System.Net.Mail;
+using System.Net;
 using System.Text.Encodings.Web;
 using System.Xml.Linq;
 using Zaliczenie.Persistance;
@@ -99,6 +102,32 @@ namespace Zaliczenie.Services
                     db.Users.Remove(userToDelete);
                     db.SaveChanges();
                 }
+            }
+        }
+
+
+        public void SendMail(SendMailModel mailModel)
+        {
+            using (var db = new DataContext())
+            {
+                var user = db.Users.FirstOrDefault(x => x.Id == mailModel.Id);
+                if (user == null)
+                    throw new ValidationException("User not found");
+
+                var smtpClient = new SmtpClient("smtp.poczta.onet.pl")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential("testigors@op.pl", "NZXTa@@@1"),
+                    EnableSsl = false,
+                };
+
+                MailMessage message = new MailMessage("testigors@op.pl", user.email);
+                message.Subject = mailModel.Subject;
+                message.Body = mailModel.Text;
+
+
+                smtpClient.Send(message);
+
             }
         }
     }

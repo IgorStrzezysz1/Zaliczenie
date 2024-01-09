@@ -51,5 +51,13 @@ namespace Zaliczenie.Controllers
             return userService.GetDetails(id);
 
         }
+
+        [HttpPost(Name = "SendMail")]
+        public IActionResult SendMail([FromBody] SendMailModel user)
+        {
+            userService.SendMail(user);
+            return Ok();
+
+        }
     }
 }
