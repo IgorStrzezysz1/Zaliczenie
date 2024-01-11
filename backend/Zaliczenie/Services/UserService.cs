@@ -43,7 +43,7 @@ namespace Zaliczenie.Services
                 userToUpdate.Surname = user.Surname;
                 userToUpdate.PhoneNumber = user.phoneNumber;
                 userToUpdate.City = user.City;
-
+                userToUpdate.email = user.Email;
                 db.SaveChanges();
             }
         }

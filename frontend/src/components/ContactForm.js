@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
 import '../Styles/ContactForm.css'
+import { makeStyles } from '@mui/material';
 
-const ContactForm=()=>{
-    const [email, setEmail] = useState("")
+const ContactForm=({sendMail})=>{
+    const [subject, setSubject] = useState("");
     const [content, setContent] = useState("");
     const [errormassage, setErrormassage] = useState({
+        subject: "",
         email: "",
         content: "",
     });
     const validation =()=>{
-        if(email.length === 0 ){
 
-          setErrormassage(prev => {
-
+        setErrormassage(prev => {
             return{
-                ...prev, email: "Pole nie może być puste"
+                ...prev, content: "", email: ""
             }
           })
-          return "error"
-        
-        } else if(content.length === 0)
+
+        if(content.length === 0)
         {
             setErrormassage(prev => {
                 return{
@@ -30,9 +29,17 @@ const ContactForm=()=>{
               return "error"
 
         }
+        else if(subject.length ===0) {
+            setErrormassage(prev =>
+                {
+                    return{
+                        ...prev, subject: "Pole nie może być puste"
+                    }
+                }
+                )
+                return "error"
+        }
         return null
-    
-         
         }
     
     const sendEmail=(e)=>{
@@ -41,14 +48,19 @@ const ContactForm=()=>{
         if(isError !== null){
             return
         }
+        
+        const newEmail = {
+            subject: subject,
+            text: content,
+        }
+        sendMail(newEmail);
         setErrormassage(prev => {
             return{
-                ...prev, content: "", email: ""
+                ...prev, content: ""
             }
           })
     }
-
-    console.log(email)
+    
     console.log(content)
     return(
         <div className="ContactForm" >
@@ -56,12 +68,11 @@ const ContactForm=()=>{
             <form className="FormContact" onSubmit={sendEmail}>
                 <label>
                     Temat: 
-                    <input type="text" name="email" onChange={(e)=> setEmail(e.target.value)} value={email}/>
-                    {errormassage.email ? <h2>{errormassage.email}</h2> : null}
-                    
-            
-
+                    <input type="text" name="subject" onChange={(e)=> setSubject(e.target.value)} value={subject}/>
+                    {errormassage.subject ? <h2>{errormassage.subject}</h2> : null}
                 </label>
+
+
                 <br></br>
                 <label>
                     Treść: 

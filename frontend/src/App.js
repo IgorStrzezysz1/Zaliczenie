@@ -10,9 +10,10 @@ import ContactForm from './components/ContactForm';
 function App() {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedUserForMail, setSelectedMailUser] = useState(null);
   const [selectedUserEdit, setSelectedUserEdit] = useState(null);
-  const url = "http://localhost:45716"
-  //const url = "http://localhost:8080"
+  //const url = "http://localhost:45716"
+  const url = "http://localhost:8080"
 
   // Fetch users on component mount
   useEffect(() => {
@@ -75,6 +76,7 @@ function App() {
         // "subject": "temat wiadomosci"
         // "text": "treść wiadomości"
         //}
+        mailData.id = selectedUserForMail.id;
         console.log(mailData)
         try {
           const response = await fetch(url + `/User/SendMail`, {
@@ -84,7 +86,7 @@ function App() {
             },
             body: JSON.stringify(mailData),
           });
-          setSelectedUser(null);
+          setSelectedMailUser(null);
         } catch (error) {
           console.error('Error mail sending:', error);
         }
@@ -114,16 +116,20 @@ function App() {
     <div className='app'>
       <h1>Aplikacja Igor Strzeżysz, proszę dodaj więcej użytkowników</h1>
       <InputForm addUser={addUser} updateUser={updateUser} initialData={{id: '', name: '', surname: '', phoneNumber: '', city: '', pesel: '', email: '' }} />
-      <UserList users={users} viewUser={setSelectedUser} editUser={setSelectedUserEdit} deleteUser={deleteUser} />
-      <ContactForm />
+      <UserList users={users} viewUser={setSelectedUser} editUser={setSelectedUserEdit} deleteUser={deleteUser} mailUser={setSelectedMailUser} />
       {selectedUser ? (
         <div>
           <UserDetail user={selectedUser} />
         </div>
       ) : null}
-            {selectedUserEdit ? (
+      {selectedUserEdit ? (
         <div>
-          <UserEdit user={selectedUserEdit} updateUser={updateUser} sendMail ={sendEmail}/>
+          <UserEdit user={selectedUserEdit} updateUser={updateUser} />
+        </div>
+      ) : null}
+      {selectedUserForMail ? (
+        <div>
+          <ContactForm sendMail ={sendEmail} />
         </div>
       ) : null}
     </div>
