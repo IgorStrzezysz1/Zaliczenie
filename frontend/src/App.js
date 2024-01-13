@@ -14,7 +14,6 @@ function App() {
   const [selectedUserEdit, setSelectedUserEdit] = useState(null);
   //const url = "http://localhost:45716"
   const url = "http://localhost:8080"
-
   // Fetch users on component mount
   useEffect(() => {
     fetchUsers();

@@ -7,6 +7,7 @@ services:
       - react-net
     expose:
       - 8080
+      - 587
     ports:
       - 8080:8080
 
@@ -24,8 +25,8 @@ services:
     depends_on:
       - backend
     expose:
-      - 3306
-      - 33060
+      - 587
+      - 8080
       - 3000
 
 networks:
